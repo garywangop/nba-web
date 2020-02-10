@@ -1,5 +1,8 @@
 @import "sytles/App.css";
 @import "sytles/TopNavBar.css";
+@import "sytles/Main.css";
+@import "sytles/Profile.css";
+@import "sytles/ShotChart.css";
 
 body {
   margin: 0;
