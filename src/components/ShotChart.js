@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import nba from '../nba-client';
 import * as d3 from 'd3';
 import { hexbin } from 'd3-hexbin';
@@ -7,12 +7,15 @@ import PropTypes from 'prop-types';
 
 window.d3_hexbin = {hexbin : hexbin}; // workaround library problem
 
-class ShotChart extends Component {
+class ShotChart extends React.Component {
     static propTypes = {
-        playerId: PropTypes.number.isRequired,
+        playerId: PropTypes.number,
+        minCount: PropTypes.number,
+        chartType: PropTypes.string,
+        displayTooltip: PropTypes.bool,
     }
 
-    componentDidMount() {
+    componentDidUpdate() {
         nba.stats.shots({
             PlayerID: this.props.playerId
         }).then((response) => {
@@ -25,8 +28,9 @@ class ShotChart extends Component {
             }));
 
             const courtSelection = d3.select("#shot-chart");
+            courtSelection.html('');
             const chart_court = court().width(500);
-            const chart_shots = shots().shotRenderThreshold(2).displayToolTips(true).displayType("hexbin");
+            const chart_shots = shots().shotRenderThreshold(this.props.minCount).displayToolTips(true).displayType("hexbin");
             courtSelection.call(chart_court);
             courtSelection.datum(final_shots).call(chart_shots);
         });
