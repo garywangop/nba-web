@@ -3,6 +3,8 @@
 @import "sytles/Main.css";
 @import "sytles/Profile.css";
 @import "sytles/ShotChart.css";
+@import '~antd/dist/antd.css';
+@import "sytles/DataViewContainer.css";
 
 body {
   margin: 0;
